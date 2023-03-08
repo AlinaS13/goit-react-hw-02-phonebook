@@ -2,9 +2,9 @@ import { Component } from 'react';
 import { Input } from 'components/input';
 
 export class Phonebook extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     return (

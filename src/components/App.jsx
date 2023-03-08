@@ -10,22 +10,27 @@ export class App extends Component {
   state = {
     contacts: [],
     filter: '',
-    name: '',
-    number: '',
   };
 
   handleSubmit = event => {
     event.preventDefault();
     const query = event.target.elements.name.value;
     const number = event.target.elements.number.value;
-    this.setState(prevState => ({
-      ...prevState,
-      contacts: prevState.contacts.concat({
-        name: query,
-        id: nanoid(),
-        number: number,
-      }),
-    }));
+    const findeItem = this.state.contacts.find(
+      contact => contact.name === query
+    );
+    if (findeItem) {
+      alert(`${query} is alredy in contacts`);
+    } else {
+      this.setState(prevState => ({
+        ...prevState,
+        contacts: prevState.contacts.concat({
+          name: query,
+          id: nanoid(),
+          number: number,
+        }),
+      }));
+    }
     event.target.reset();
   };
 
@@ -42,6 +47,11 @@ export class App extends Component {
         contact.number.includes(this.state.filter)
     );
   };
+  handleDeleteContact = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    }));
+  };
 
   render() {
     const { filter } = this.state;
@@ -55,7 +65,11 @@ export class App extends Component {
             filter={filter}
             onChangeInput={this.handleChengeInput}
           />
-          <Contacts contacts={this.applyFilters()} />
+          <Contacts
+            onSubmit={this.handleSubmit}
+            contacts={this.applyFilters()}
+            onDeleteContact={this.handleDeleteContact}
+          />
         </Section>
       </Wraper>
     );

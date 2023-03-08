@@ -1,16 +1,15 @@
-import { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import { Input } from 'components/input';
 
-export class Phonebook extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+export const Phonebook = ({ onSubmit }) => {
+  return (
+    <form onSubmit={onSubmit}>
+      <Input onSubmit={onSubmit} />
+    </form>
+  );
+};
 
-  render() {
-    return (
-      <form onSubmit={this.props.onSubmit}>
-        <Input />
-      </form>
-    );
-  }
-}
+Phonebook.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
